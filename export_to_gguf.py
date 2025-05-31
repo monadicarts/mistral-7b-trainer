@@ -1,9 +1,22 @@
+"""
+export_to_gguf.py
+
+Exports a fine-tuned Hugging Face model (potentially merged with LoRA adapters)
+to the GGUF format, suitable for use with tools like llama.cpp.
+It handles model loading, GGUF conversion, and ensures the necessary
+`config.json` is present in the output directory.
+
+Author: Justin Greisiger Frost <justinfrost@duck.com>
+Date: 2025-05-31
+"""
+
 from unsloth import FastLanguageModel
 
 import gc
 import os
 import shutil
 
+import requests
 import torch
 
 from utils.logger import get_logger
@@ -22,6 +35,11 @@ MAX_SEQ_LENGTH = (
 
 
 def main():
+    """
+    Main function to load the model, convert it to GGUF format,
+    and manage the associated configuration file. Includes error handling
+    and memory cleanup.
+    """
     try:
         logger.info("Loading base model and tokenizer...")
         model, tokenizer = FastLanguageModel.from_pretrained(
@@ -55,9 +73,6 @@ def main():
                     shutil.copy(base_config_path, output_config_path)
                     logger.info(f"Copied config.json to {gguf_config_dir}")
                 else:
-                    # Try to download from Hugging Face if not present locally
-                    import requests
-
                     url = "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2/resolve/main/config.json"
                     r = requests.get(url)
                     r.raise_for_status()
