@@ -1,0 +1,1 @@
+FROM ./llama2_7b_ollama.gguf/unsloth.Q4_K_M.gguf
