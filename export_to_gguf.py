@@ -73,7 +73,7 @@ def main():
                     shutil.copy(base_config_path, output_config_path)
                     logger.info(f"Copied config.json to {gguf_config_dir}")
                 else:
-                    url = "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2/resolve/main/config.json"
+                    url = "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3/resolve/main/config.json"
                     r = requests.get(url)
                     r.raise_for_status()
                     with open(output_config_path, "wb") as f:

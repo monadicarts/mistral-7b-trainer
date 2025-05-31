@@ -136,7 +136,7 @@ def test_export_gguf_main_flow_config_download(
 
     mock_shutil_copy.assert_not_called()
     mock_requests_get.assert_called_once()  # Check the URL if it's static, or use mock.ANY
-    # Example: mock_requests_get.assert_called_once_with("https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2/resolve/main/config.json")
+    # Example: mock_requests_get.assert_called_once_with("https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3/resolve/main/config.json")
     mock_builtin_open.assert_called_once_with(output_config_path, "wb")
     mock_builtin_open().write.assert_called_once_with(b'{"config_key": "config_value"}')
     mock_logger_export.info.assert_any_call(f"Downloaded config.json to {gguf_dir}")
