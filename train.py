@@ -19,7 +19,6 @@ import torch
 from datasets import load_dataset
 from transformers import EarlyStoppingCallback, TrainingArguments
 from trl import SFTTrainer
-from tqdm import tqdm
 
 from utils.logger import get_logger
 
